@@ -6,6 +6,9 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using Shop.BLL.Interfaces;
+using System.Security.Claims;
+using Shop.DAL.Constants;
+
 namespace Show.WebApi.Controllers
 {
     [RoutePrefix("api/product")]
@@ -19,15 +22,21 @@ namespace Show.WebApi.Controllers
             this.service = service;
         }
 
+    
         [Route("")]
-        [AllowAnonymous]
-        public IEnumerable<ProductDTO> GetProducts()
+        public IHttpActionResult Get()
         {
-            var posts = service.GetProducts();
-            return posts;
+            return Ok(service.GetProducts());
         }
+        //public IEnumerable<ProductDTO> GetProducts()
+        //{
+        //    var posts = service.GetProducts();
+        //    return posts;
+        //}
+        
         [Route("InRange")]
-        [AllowAnonymous]
+        //  [AllowAnonymous]
+        [Authorize(Roles = "User")]
         public IEnumerable<ProductDTO> GetProductsinRange([FromUri]int bot, [FromUri]int top)
         {
             var posts = service.GetProductsInRange(bot, top);

@@ -54,7 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Constants\Const.cs" />
     <Compile Include="DB\AuthenticationContext.cs" />
+    <Compile Include="DB\AuthenticationDBInitializer.cs" />
     <Compile Include="DB\EShopContext.cs" />
     <Compile Include="DB\EshopDBInitializer.cs" />
     <Compile Include="Entities\Category.cs" />
@@ -68,6 +70,8 @@
     <Compile Include="Interfaces\IAutheticationRepository.cs" />
     <Compile Include="Interfaces\IShopRepository.cs" />
     <Compile Include="Interfaces\IShopUnitOfWork.cs" />
+    <Compile Include="Migrations\Authentication\Configuration.cs" />
+    <Compile Include="Migrations\EShop\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AuthenticationRepository.cs" />
     <Compile Include="Repository\ShopRepository.cs" />

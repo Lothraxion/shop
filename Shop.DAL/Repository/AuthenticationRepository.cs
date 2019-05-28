@@ -27,8 +27,10 @@ namespace Shop.DAL.Repository
         {
             IdentityUser user = new IdentityUser
             {
-                UserName = userModel.UserName
+                UserName = userModel.UserName,
+                
             };
+            
 
             var result = await _userManager.CreateAsync(user, userModel.Password);
 

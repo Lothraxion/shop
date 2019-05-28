@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
+using Shop.DAL.Constants;
 using Shop.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -28,19 +29,18 @@ namespace Show.WebApi.Providers
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
 
-
+          
             IdentityUser user = await unit.AuthRepository.FindUser(context.UserName, context.Password);
-
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
             }
-
+            
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("sub", context.UserName));
             identity.AddClaim(new Claim("role", "user"));
-
+            identity.AddClaim(new Claim("password", context.Password));
             context.Validated(identity);
 
         }

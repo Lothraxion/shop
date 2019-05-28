@@ -33,6 +33,7 @@ namespace Show.WebApi.Controllers
             }
 
             IdentityResult result = await _repo.AuthRepository.RegisterUser(userModel);
+            
 
             IHttpActionResult errorResult = GetErrorResult(result);
 

@@ -19,6 +19,6 @@ namespace Shop.DAL.DB
         {
             Database.SetInitializer(new EshopDBInitializer());
         }
-
+        public EShopContext() { }
     }
 }

@@ -17,8 +17,8 @@ namespace Shop.DAL.DB
         public DbSet<SubSection> SubSections { get; set; }
         public EShopContext(string connectionString) : base(connectionString)
         {
-            Database.SetInitializer(new EshopDBInitializer());
+           
         }
-        public EShopContext() { }
+        public EShopContext() { Database.SetInitializer(new EshopDBInitializer()); }
     }
 }

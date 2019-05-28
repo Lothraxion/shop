@@ -16,11 +16,11 @@ namespace Shop.DAL.DB
         public AuthenticationContext(string connectionString)
           : base(connectionString)
         {
-           // Database.SetInitializer(new AuthenticationDBInitializer());
         }
 
         public AuthenticationContext()
         {
+            Database.SetInitializer<AuthenticationContext>(new AuthenticationDBInitializer());
         }
     }
 }

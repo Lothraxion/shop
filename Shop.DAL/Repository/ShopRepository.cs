@@ -57,12 +57,12 @@ namespace Shop.DAL.Repository
 
         public IEnumerable<T> GetItemListByInclude(Expression<Func<T, bool>> expression)
         {
-            return table.Include(expression);
+            return table.Include(expression).ToList();
         }
 
         public IEnumerable<T> GetItemListByWhere(Expression<Func<T, bool>> expression)
         {
-            return table.Where(expression);
+            return table.Where(expression).ToList();
         }
 
         public void Save()

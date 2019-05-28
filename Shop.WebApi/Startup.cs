@@ -53,7 +53,7 @@ namespace Shop.WebApi
         private static StandardKernel CreateKernel()
         {
             var modules = new INinjectModule[] { new ServiceNinjectModule("ShopConnection"),
-                new AuthenticationNinjectModule("AutheniticationConnection")};
+                new AuthenticationNinjectModule("AuthenticationConnection")};
             var kernel = new StandardKernel(modules);
             try
             {

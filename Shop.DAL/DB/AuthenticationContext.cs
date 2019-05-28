@@ -10,17 +10,18 @@ using System.Threading.Tasks;
 
 namespace Shop.DAL.DB
 {
-   public class AuthenticationContext: IdentityDbContext<IdentityUser>
+   public class AuthenticationContext: IdentityDbContext<ApplicationUser>
     {
-        public DbSet<UserModel> Users { get; set; }
+      //  public DbSet<ApplicationUser> Users { get; set; }
         public AuthenticationContext(string connectionString)
           : base(connectionString)
         {
+           // Database.SetInitializer(new AuthenticationDBInitializer());
         }
 
         public AuthenticationContext()
         {
-            Database.SetInitializer<AuthenticationContext>(new AuthenticationDBInitializer());
+          //  Database.SetInitializer<AuthenticationContext>(new AuthenticationDBInitializer());
         }
     }
 }

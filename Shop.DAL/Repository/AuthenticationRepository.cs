@@ -15,32 +15,74 @@ namespace Shop.DAL.Repository
     {
         private AuthenticationContext _ctx;
 
-        private UserManager<IdentityUser> _userManager;
-
+        private UserManager<ApplicationUser> _userManager;
+        private RoleManager<IdentityRole> _roleManager;
         public AuthenticationRepository(AuthenticationContext context)
         {
             _ctx = context;
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
+            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(_ctx));
+            _roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(_ctx));
         }
 
-        public async Task<IdentityResult> RegisterUser(UserModel userModel)
+        public void RoleAddToUser(string UserName, string RoleName)
+        {
+            ApplicationUser user = _ctx.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            _userManager.AddToRole(user.Id, RoleName);
+        }
+        public IEnumerable<string> GetRoles(string UserName)
+        {
+         
+                ApplicationUser user = _ctx.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+
+            return _userManager.GetRoles(user.Id).ToList();
+
+        }
+        //public async Task<IdentityRole> createRole(Microsoft.AspNet.Identity.EntityFramework.IdentityRole role)
+        //{
+
+        //    _ctx.Roles.Add( new IdentityRole()
+        //        {
+        //        Name = ["RoleName"]
+        //    });
+
+        //}
+
+        public void CreateRole(string RoleName)
+        {
+            _ctx.Roles.Add(new IdentityRole() { Name = RoleName });
+            _ctx.SaveChanges();
+        }
+
+        public async Task<IdentityResult> RegisterUser(ApplicationUser userModel)
         {
             IdentityUser user = new IdentityUser
             {
                 UserName = userModel.UserName,
+               // PasswordHash = userModel.Password,
+               // Roles = userModel.Roles,
+               
+            };
+            var user1 = new ApplicationUser
+            {
+               // RoleName = userModel.RoleName,
+                UserName = userModel.UserName,
                 
             };
+            // _userManager.AddToRole(user.Id)
+            // Roles.AddUsersToRole
+            // var roles = _roleManager.Roles;
+            var result = await _userManager.CreateAsync(user1, userModel.Password);
+            //  IdentityUser userrole = await _userManager.FindAsync(userModel.UserName, userModel.Password);
+            //_userManager.AddToRole(userModel.Id, "User");
             
-
-            var result = await _userManager.CreateAsync(user, userModel.Password);
-
             return result;
         }
 
         public async Task<IdentityUser> FindUser(string userName, string password)
         {
             IdentityUser user = await _userManager.FindAsync(userName, password);
-
+            
+            
             return user;
         }
 

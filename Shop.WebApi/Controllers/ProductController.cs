@@ -24,19 +24,20 @@ namespace Show.WebApi.Controllers
 
     
         [Route("")]
-        public IHttpActionResult Get()
-        {
-            return Ok(service.GetProducts());
-        }
-        //public IEnumerable<ProductDTO> GetProducts()
+        [Authorize(Roles = "Admin")]
+        //public IHttpActionResult Get()
         //{
-        //    var posts = service.GetProducts();
-        //    return posts;
+        //    return Ok(User.Identity.Name + User.IsInRole("user"));
         //}
-        
+        public IEnumerable<ProductDTO> GetProducts()
+        {
+            var posts = service.GetProducts();
+            return posts;
+        }
+
         [Route("InRange")]
         //  [AllowAnonymous]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "User,Admin,Manager")]
         public IEnumerable<ProductDTO> GetProductsinRange([FromUri]int bot, [FromUri]int top)
         {
             var posts = service.GetProductsInRange(bot, top);
@@ -44,7 +45,7 @@ namespace Show.WebApi.Controllers
 
         }
         [Route("ByName")]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin,Manager")]
         public IEnumerable<ProductDTO> GetProductsByName([FromUri] string Name)
         {
             return service.GetProductsThatContainsWord(Name);

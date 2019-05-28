@@ -64,24 +64,32 @@
     <Compile Include="Entities\Section.cs" />
     <Compile Include="Entities\SubSection.cs" />
     <Compile Include="Entities\User.cs" />
-    <Compile Include="Entities\UserModel.cs" />
+    <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\OrderCart.cs" />
     <Compile Include="Interfaces\IAuthenticationUoW.cs" />
     <Compile Include="Interfaces\IAutheticationRepository.cs" />
     <Compile Include="Interfaces\IShopRepository.cs" />
     <Compile Include="Interfaces\IShopUnitOfWork.cs" />
-    <Compile Include="Migrations\Authentication\Configuration.cs" />
-    <Compile Include="Migrations\EShop\Configuration.cs" />
+    <Compile Include="Migrations\AuthenticationContext\201905281518505_InitialMigrations.cs" />
+    <Compile Include="Migrations\AuthenticationContext\201905281518505_InitialMigrations.Designer.cs">
+      <DependentUpon>201905281518505_InitialMigrations.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\AuthenticationContext\AuthConfig.cs" />
+    <Compile Include="Migrations\EShop\EShopConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\AuthenticationRepository.cs" />
     <Compile Include="Repository\ShopRepository.cs" />
     <Compile Include="UnitOfWork\AuthenticationUoW.cs" />
     <Compile Include="UnitOfWork\ShopUnitOfWork.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\AuthenticationContext\201905281518505_InitialMigrations.resx">
+      <DependentUpon>201905281518505_InitialMigrations.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

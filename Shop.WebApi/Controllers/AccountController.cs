@@ -37,12 +37,7 @@ namespace Show.WebApi.Controllers
                 user.Add("User");
             if (User.IsInRole("Manager"))
                 user.Add("Manager");
-            //return User.Identity.Name +" Admin" ;
-            //if (User.IsInRole("User"))
-            //    return User.Identity.Name + " User";
-            //if (User.IsInRole("Manager"))
-            //    return User.Identity.Name + " Manager";
-            //return User.Identity.Name;
+          
 
             return user;
         }

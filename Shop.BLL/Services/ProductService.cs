@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Shop.DAL.Interfaces;
 using AutoMapper;
 using Shop.DAL.Entities;
+using Shop.BLL.Exceptions;
 
 namespace Shop.BLL.Services
 {
@@ -20,7 +21,26 @@ namespace Shop.BLL.Services
         }
         public void Add(ProductDTO product)
         {
+            var category = unitOfWork.CategoryRepository.GetItemByExpression(n => n.Name.Equals(product.CategoryName, StringComparison.OrdinalIgnoreCase));
+            if (category == null)
+            {
+                throw new NotExsitinException("Category does not existing");
+            }
+            var section = unitOfWork.SectionRepository.GetItemByExpression(n => n.Name.Equals(product.SectionName, StringComparison.OrdinalIgnoreCase));
+            if (section == null)
+            {
+                throw new NotExsitinException("Section does not existing");
+            }
+            var subsection = unitOfWork.SubSectionRepository.GetItemByExpression(n => n.Name.Equals(product.SubSectionName, StringComparison.OrdinalIgnoreCase));
+            if (subsection == null)
+            {
+                throw new NotExsitinException("Subsection does not existing");
+            }
             Product tempProduct = Mapper.Map<ProductDTO, Product>(product);
+            tempProduct.Category = category;
+            tempProduct.Amount = product.Amount;
+            tempProduct.Section = section;
+            tempProduct.SubSection = subsection;
             unitOfWork.ProductRepository.Create(tempProduct);
             unitOfWork.CommtiChanges();
         }
@@ -91,11 +111,10 @@ namespace Shop.BLL.Services
             var tempProduct = unitOfWork.ProductRepository.GetItemById(id);
             var tempCategory= unitOfWork.CategoryRepository.GetItemByExpression(n => n.Name == product.CategoryName);
             var tempSectiong =unitOfWork.SectionRepository.GetItemByExpression(n => n.Name == product.CategoryName);
-            tempProduct.Amount = product.Amout;
+            tempProduct.Amount = product.Amount;
             tempProduct.Name = product.Name;
             tempProduct.Pirce = product.Price;
             tempProduct.Сharacteristics = product.Сharacteristics;
-
             tempProduct.Category = tempCategory;
             tempProduct.CategoryId = tempCategory.Id;
         }

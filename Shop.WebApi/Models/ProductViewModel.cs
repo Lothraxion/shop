@@ -2,31 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-
-namespace Shop.BLL.DTO
+namespace Show.WebApi.Models
 {
-    [DataContract]
-    public class ProductDTO
+    public class ProductViewModel
     {
-        [DataMember]
         public string Name { get; set; }
-        [DataMember]
-        public double Price { get; set; }
-        [DataMember]
         public int Amount { get; set; }
-        [DataMember]
+        public double Price { get; set; }
+        public int Sales { get; private set; }
         public string Сharacteristics { get; set; }
-        [DataMember]
-        public int Sales { get; }
-        [DataMember]
         public string CategoryName { get; set; }
-        [DataMember]
         public string SectionName { get; set; }
-        [DataMember]
         public string SubSectionName { get; set; }
-
     }
 }

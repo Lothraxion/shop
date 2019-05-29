@@ -31,17 +31,18 @@ namespace Shop.DAL.Repository
         //}
         public ApplicationUser GetApplicationUser(string UserName)
         {
-            ApplicationUser user = _ctx.Users.Where(u => u.UserName.Equals(UserName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            ApplicationUser user = _ctx.Users.Where(u => u.UserName.Equals(UserName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
             return user;
+            
         }
         public IdentityRole GetIdentityRole(string RoleName)
         {
-            IdentityRole role = _ctx.Roles.Where(n => n.Name.Equals(RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            IdentityRole role = _ctx.Roles.Where(n => n.Name.Equals(RoleName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
             return role;
         }
         public void DeleteRole(string RoleName)
         {
-            IdentityRole role = _ctx.Roles.Where(n => n.Name.Equals(RoleName, StringComparison.CurrentCultureIgnoreCase)).FirstOrDefault();
+            IdentityRole role = _ctx.Roles.Where(n => n.Name.Equals(RoleName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
             _ctx.Roles.Remove(role);
             _ctx.SaveChanges();
         }

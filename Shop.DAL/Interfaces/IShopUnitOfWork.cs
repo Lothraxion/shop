@@ -15,7 +15,7 @@ namespace Shop.DAL.Interfaces
         IShopRepository<Section> SectionRepository { get; }
         IShopRepository<SubSection> SubSectionRepository { get; }
         IShopRepository<User> UserRepository { get; }
-
+        IShopRepository<OrderCart> ProductCartRepository { get; }
         void CommtiChanges();
         void RejectChanges();
     }

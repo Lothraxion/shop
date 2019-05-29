@@ -82,17 +82,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AutomapperProfiles\OrderDTOProfile.cs" />
     <Compile Include="AutomapperProfiles\ProductDTOProfile.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
+    <Compile Include="DTO\OrderCartDTO.cs" />
+    <Compile Include="DTO\ProductAddModel.cs" />
     <Compile Include="DTO\ProductDTO.cs" />
     <Compile Include="DTO\SectionDTO.cs" />
     <Compile Include="DTO\SubSectionDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="Exceptions\AddingException.cs" />
+    <Compile Include="Exceptions\InvalidArgumentException.cs" />
+    <Compile Include="Exceptions\NotExsitinException.cs" />
+    <Compile Include="Exceptions\ValidationException.cs" />
+    <Compile Include="Interfaces\IOrderService.cs" />
     <Compile Include="Interfaces\IProductService.cs" />
     <Compile Include="BLLNinjectModule\AuthenticationNinjectModule.cs" />
     <Compile Include="BLLNinjectModule\ServiceNinjectModule.cs" />
     <Compile Include="Interfaces\IUserService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\OrderService.cs" />
     <Compile Include="Services\ProductService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
@@ -106,5 +115,6 @@
       <Name>Shop.DAL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

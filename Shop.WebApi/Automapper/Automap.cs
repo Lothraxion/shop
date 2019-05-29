@@ -1,4 +1,5 @@
 ﻿using Shop.BLL.AutomapperProfiles;
+using Show.WebApi.Automapper.Profiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,19 +13,10 @@ namespace Show.WebApi.Automapper
         {
             AutoMapper.Mapper.Initialize(cfg =>
             {
-
-              
-
-
-
+                cfg.AddProfile<OrderViewModelProfile>();
                 cfg.AddProfile<ProductDTOProfile>();
-                //cfg.CreateMap<Tag, string>().ConstructUsing(c => c.Name);
-                //cfg.CreateMap<Category, string>().ConstructUsing(c => c.Name);
-                //cfg.CreateMap<Post, PostDTO>()
-                //.ForMember(c => c.tags, y => y.MapFrom(z => z.Tags))
-                //.ForMember(c => c.CategoryName, y => y.MapFrom(z => z.Category));
-
-
+                cfg.AddProfile<ProductViewProfile>();
+             
             });
         }
     }

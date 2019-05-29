@@ -32,6 +32,9 @@ namespace Shop.DAL.UnitOfWork
 
         public IShopRepository<User> UserRepository =>
             new ShopRepository<User>(_eShopContext);
+
+        public IShopRepository<OrderCart> ProductCartRepository => 
+            new ShopRepository<OrderCart>(_eShopContext);
         #endregion
 
         public ShopUnitOfWork(string ConnectionString)

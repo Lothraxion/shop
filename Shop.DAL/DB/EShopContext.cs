@@ -15,10 +15,12 @@ namespace Shop.DAL.DB
         public DbSet<User> Users { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<SubSection> SubSections { get; set; }
+        public DbSet<OrderCart> OrderCarts { get; set;}
         public EShopContext(string connectionString) : base(connectionString)
         {
-            Database.SetInitializer(new EshopDBInitializer());
+           // Database.SetInitializer(new EshopDBInitializer());
         }
+
         public EShopContext() { Database.SetInitializer(new EshopDBInitializer()); }
     }
 }

@@ -8,7 +8,8 @@ using System.Web.Http;
 using Shop.BLL.Interfaces;
 using System.Security.Claims;
 using Shop.DAL.Constants;
-
+using Show.WebApi.Models;
+using AutoMapper;
 namespace Show.WebApi.Controllers
 {
     [RoutePrefix("api/product")]
@@ -24,7 +25,7 @@ namespace Show.WebApi.Controllers
 
     
         [Route("")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         //public IHttpActionResult Get()
         //{
         //    return Ok(User.Identity.Name + User.IsInRole("user"));
@@ -34,7 +35,13 @@ namespace Show.WebApi.Controllers
             var posts = service.GetProducts();
             return posts;
         }
-
+        [HttpPost]
+        [Route("AddProduct")]
+        public void AddProduct(ProductViewModel product)
+        {
+            var productdto = Mapper.Map<ProductViewModel, ProductDTO>(product);
+            service.Add(productdto);
+        }
         [Route("InRange")]
         //  [AllowAnonymous]
         [Authorize(Roles = "User,Admin,Manager")]

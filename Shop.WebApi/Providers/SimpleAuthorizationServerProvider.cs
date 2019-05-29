@@ -32,7 +32,6 @@ namespace Show.WebApi.Providers
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
           
             IdentityUser user = await service.FindUser(context.UserName, context.Password);
-            //Roles.AddUserToRole()
             if (user == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
@@ -43,20 +42,11 @@ namespace Show.WebApi.Providers
             var user1 = await service.FindUser(context.UserName, context.Password);
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("sub", context.UserName));
-            //  if (user.Roles == "Admin") ;
-            //if(user.UserName=="Admin")
-            //    identity.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
-            //if (user.UserName == "user")
-            //    identity.AddClaim(new Claim(ClaimTypes.Role, "User"));
-            //if (user.UserName == "Manager")
-            //identity.AddClaim(new Claim(ClaimTypes.Role, "Manager"));
             foreach (var roles in service.GetRoles(user.UserName))
             {
                 identity.AddClaim(new Claim(ClaimTypes.Role, roles));
             }
-          
             identity.AddClaim(new Claim(ClaimTypes.Name, context.UserName));
-            // identity.AddClaim(new Claim("RoleName", user.RoleName));
             context.Validated(identity);
 
         }

@@ -44,7 +44,6 @@ namespace Shop.WebApi
             var kernel = CreateKernel();
             ConfigureOAuth(app,kernel);
             Automap.Configure();
-           
            // GlobalConfiguration.Configure(WebApiConfig.Register);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
            
@@ -75,6 +74,7 @@ namespace Shop.WebApi
         {
             kernel.Bind<IProductService>().To<ProductService>();
             kernel.Bind<IUserService>().To<UserService>();
+            kernel.Bind<IOrderService>().To<OrderService>();
         }
 
         public void ConfigureOAuth(IAppBuilder app, IKernel kernel)

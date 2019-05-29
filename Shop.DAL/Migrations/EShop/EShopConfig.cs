@@ -11,6 +11,7 @@ namespace Shop.DAL.Migrations.EShop
         {
             AutomaticMigrationsEnabled = true;
             MigrationsDirectory = @"Migrations\EShop";
+            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(Shop.DAL.DB.EShopContext context)

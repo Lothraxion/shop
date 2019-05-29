@@ -14,7 +14,10 @@ namespace Shop.BLL.AutomapperProfiles
         public ProductDTOProfile()
         {
 
-            CreateMap<Product, ProductDTO>().ForMember(x=>x.Price, y=>y.MapFrom(z=>z.Pirce)).ReverseMap();
+            CreateMap<Product, ProductDTO>().ForMember(x => x.Price, y => y.MapFrom(z => z.Pirce))
+                .ForMember(x => x.Amount, y => y.MapFrom(z => z.Amount))
+                .ForMember(x=>x.Sales,y=>y.MapFrom(z=>z.Sales)).ReverseMap();
+
         }
     }
 }

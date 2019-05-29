@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security.OAuth;
+using Shop.BLL.Interfaces;
 using Shop.DAL.Constants;
 using Shop.DAL.Interfaces;
 using System;
@@ -14,10 +15,10 @@ namespace Show.WebApi.Providers
 {
     public class SimpleAuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        private IAuthenticationUoW unit;
-        public SimpleAuthorizationServerProvider(IAuthenticationUoW uoW)
+        private IUserService service;
+        public SimpleAuthorizationServerProvider(IUserService uoW)
         {
-            unit = uoW;
+            service = uoW;
         }
 
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
@@ -30,7 +31,7 @@ namespace Show.WebApi.Providers
 
             context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
           
-            IdentityUser user = await unit.AuthRepository.FindUser(context.UserName, context.Password);
+            IdentityUser user = await service.FindUser(context.UserName, context.Password);
             //Roles.AddUserToRole()
             if (user == null)
             {
@@ -39,7 +40,7 @@ namespace Show.WebApi.Providers
             }
             IdentityUserRole role = new IdentityUserRole();
             user.Roles.Contains(role);
-            var user1 = await unit.AuthRepository.FindUser(context.UserName, context.Password);
+            var user1 = await service.FindUser(context.UserName, context.Password);
             var identity = new ClaimsIdentity(context.Options.AuthenticationType);
             identity.AddClaim(new Claim("sub", context.UserName));
             //  if (user.Roles == "Admin") ;
@@ -49,7 +50,7 @@ namespace Show.WebApi.Providers
             //    identity.AddClaim(new Claim(ClaimTypes.Role, "User"));
             //if (user.UserName == "Manager")
             //identity.AddClaim(new Claim(ClaimTypes.Role, "Manager"));
-            foreach (var roles in unit.AuthRepository.GetRoles(user.UserName))
+            foreach (var roles in service.GetRoles(user.UserName))
             {
                 identity.AddClaim(new Claim(ClaimTypes.Role, roles));
             }

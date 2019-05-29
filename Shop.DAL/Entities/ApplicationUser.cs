@@ -16,7 +16,7 @@ namespace Shop.DAL.Entities
 
     
         // [ForeignKey("ProductCart")]
-        public int OrderCartId { get; set; }
+       // public int OrderCartId { get; set; }
         public string Password { get; set; }
         //[Required]
         //[Display(Name = "User name")]

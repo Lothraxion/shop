@@ -34,6 +34,7 @@ namespace Show.WebApi.Util
         private void AddBindings()
         {
             kernel.Bind<IProductService>().To<ProductService>();
+            kernel.Bind<IUserService>().To<UserService>();
         }
     }
 }

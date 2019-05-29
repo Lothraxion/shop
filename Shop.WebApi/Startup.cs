@@ -74,6 +74,7 @@ namespace Shop.WebApi
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<IProductService>().To<ProductService>();
+            kernel.Bind<IUserService>().To<UserService>();
         }
 
         public void ConfigureOAuth(IAppBuilder app, IKernel kernel)
@@ -83,7 +84,7 @@ namespace Shop.WebApi
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
-                Provider = new SimpleAuthorizationServerProvider(kernel.Get<IAuthenticationUoW>())
+                Provider = new SimpleAuthorizationServerProvider(kernel.Get<IUserService>())
             };
 
             // Token Generation

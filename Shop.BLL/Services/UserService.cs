@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Shop.BLL.Services
 {
-    class UserService:IUserService
+   public class UserService:IUserService
     {
         public IAuthenticationUoW UoW { get; private set; }
         public UserService(IAuthenticationUoW unit)
@@ -22,10 +22,10 @@ namespace Shop.BLL.Services
         {
             UoW.AuthRepository.CreateRole(RoleName);
         }
-        public void RemoveRole(string RoleName)
-        {
-            UoW.AuthRepository.DeleteRole(RoleName);
-        }
+        //public void RemoveRole(string RoleName)
+        //{
+        //    UoW.AuthRepository.DeleteRole(RoleName);
+        //}
         public async Task<IdentityResult> RegisterUser(ApplicationUser userModel)
         {
             var user1 = new ApplicationUser

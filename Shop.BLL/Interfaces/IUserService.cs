@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Shop.DAL.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +15,8 @@ namespace Shop.BLL.Interfaces
         void DeleteRole(string RoleName);
         void RemoveRoleFromUser(string UserName, string RoleName);
         IEnumerable<string> GetRoles(string UserName);
-
+        void AddRole(string RoleName);
+        Task<IdentityResult> RegisterUser(ApplicationUser userModel);
+        Task<IdentityUser> FindUser(string userName, string password);
     }
 }

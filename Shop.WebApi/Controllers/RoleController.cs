@@ -28,8 +28,8 @@ namespace Show.WebApi.Controllers
             try
 
             {
-                UserService.
-                _repo.AuthRepository.CreateRole(Role.RoleName);
+                UserService.AddRole(Role.RoleName);
+                //_repo.AuthRepository.CreateRole(Role.RoleName);
                 return Role.RoleName;
                // return Ok();
                 
@@ -47,7 +47,7 @@ namespace Show.WebApi.Controllers
             try
 
             {
-                _repo.AuthRepository.DeleteRole(Role.RoleName);
+                UserService.DeleteRole(Role.RoleName);
                 return Role.RoleName;
 
             }
@@ -60,13 +60,13 @@ namespace Show.WebApi.Controllers
         [HttpPost]
         public void RemoveRole([FromBody] UserRoleViewModel userRole)
         {
-            _repo.AuthRepository.RemoveRoleFromUser(userRole.UserName, userRole.RoleName);
+            UserService.RemoveRoleFromUser(userRole.UserName, userRole.RoleName);
         }
         [Route("AddRoleToUser")]
         [HttpPost]
         public void RoleAddToUser([FromBody] UserRoleViewModel userRole)
         {
-            _repo.AuthRepository.RoleAddToUser(userRole.UserName, userRole.RoleName);
+            UserService.AddRoleToUser(userRole.UserName, userRole.RoleName);
         }
         [HttpGet]
         [Route("{UserName:alpha}")]
@@ -74,7 +74,7 @@ namespace Show.WebApi.Controllers
         {
             if (!string.IsNullOrWhiteSpace(UserName))
             {
-                var roles = _repo.AuthRepository.GetRoles(UserName);
+                var roles = UserService.GetRoles(UserName);
                 return roles;
             }
             return null;

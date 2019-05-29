@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNet.Identity;
+using Shop.BLL.Interfaces;
 using Shop.DAL.Entities;
 using Shop.DAL.Interfaces;
 using Shop.DAL.Repository;
@@ -17,11 +18,11 @@ namespace Show.WebApi.Controllers
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
-        private IAuthenticationUoW _repo;
+        private IUserService service;
 
-        public AccountController(IAuthenticationUoW repository)
+        public AccountController(IUserService repository)
         {
-            _repo = repository;
+            service = repository;
             
         }
         [AllowAnonymous]
@@ -57,7 +58,7 @@ namespace Show.WebApi.Controllers
             }
 
           var appuser=AutoMapper.Mapper.Map<RegisterViewModel, ApplicationUser>(userModel);
-            IdentityResult result = await _repo.AuthRepository.RegisterUser(appuser);
+            IdentityResult result = await service.RegisterUser(appuser);
           //  Roles.AddUserToRole(userModel.UserName, "User");
 
            IHttpActionResult errorResult = GetErrorResult(result);
@@ -74,7 +75,7 @@ namespace Show.WebApi.Controllers
         {
             if (disposing)
             {
-                _repo.Dispose();
+                service.Dispose();
             }
 
             base.Dispose(disposing);

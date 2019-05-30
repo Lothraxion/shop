@@ -75,6 +75,9 @@ namespace Shop.WebApi
             kernel.Bind<IProductService>().To<ProductService>();
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<IOrderService>().To<OrderService>();
+            kernel.Bind<ICategoryService>().To<CategoryService>();
+            kernel.Bind<ISectionService>().To<SectionService>();
+            kernel.Bind<ISubSectionService>().To<SubSectionService>();
         }
 
         public void ConfigureOAuth(IAppBuilder app, IKernel kernel)

@@ -13,7 +13,8 @@ namespace Show.WebApi.Automapper.Profiles
         public ProductViewProfile()
         {
             CreateMap<ProductViewModel, ProductDTO>().ForMember(x => x.Amount, y => y.MapFrom(z => z.Amount))
-                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name));
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+                .ForMember(x=>x.Sales,y=>y.MapFrom(z=>z.Sales)).ReverseMap();
         }
     }
 }

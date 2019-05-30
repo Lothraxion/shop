@@ -15,7 +15,7 @@ namespace Shop.BLL.Interfaces
         ProductDTO GetProduct(int? id);
         IEnumerable<ProductDTO> GetProducts();
         IEnumerable<ProductDTO> GetProductsInRange(int bot, int top);
-        ProductDTO GetProductByName(string name);
+      //ProductDTO GetProductByName(string name);
         IEnumerable<ProductDTO> GetProductsSorted();
         IEnumerable<ProductDTO> GetProductsThatContainsWord(string word);
 

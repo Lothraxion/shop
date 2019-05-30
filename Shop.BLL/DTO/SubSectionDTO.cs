@@ -7,12 +7,10 @@ using System.Threading.Tasks;
 
 namespace Shop.BLL.DTO
 {
-    [DataContract]
     public class SubSectionDTO
     {
-        [DataMember]
         public string Name { get; set; }
-        [DataMember]
+        public string SectionName { get; set; }
         public List<ProductDTO> Products { get; set; }
     }
 }

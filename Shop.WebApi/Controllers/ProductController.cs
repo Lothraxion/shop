@@ -18,44 +18,93 @@ namespace Show.WebApi.Controllers
     {
         IProductService service;
 
-       public ProductController(IProductService service)
+        public ProductController(IProductService service)
         {
             this.service = service;
         }
 
-    
+        [HttpDelete]
+        [Route("{id:int}")]
+        public IHttpActionResult DeleteProduct(int id)
+        {
+            service.Delete(id);
+            return Ok();
+
+        }
+        [HttpGet]
+        [Route("{id:int}")]
+        public IHttpActionResult GetProduct(int id)
+        {
+            var productdto= service.GetProduct(id);
+            var productView =Mapper.Map<ProductDTO, ProductViewModel>(productdto);
+            return Ok(productView);
+
+        }
         [Route("")]
         [Authorize]
         //public IHttpActionResult Get()
         //{
         //    return Ok(User.Identity.Name + User.IsInRole("user"));
         //}
-        public IEnumerable<ProductDTO> GetProducts()
+        public IHttpActionResult GetProducts()
         {
             var posts = service.GetProducts();
-            return posts;
+            return Ok(posts);
         }
         [HttpPost]
         [Route("AddProduct")]
-        public void AddProduct(ProductViewModel product)
+        public IHttpActionResult AddProduct(ProductViewModel product)
         {
-            var productdto = Mapper.Map<ProductViewModel, ProductDTO>(product);
-            service.Add(productdto);
+            if (ModelState.IsValid)
+            {
+                var productdto = Mapper.Map<ProductViewModel, ProductDTO>(product);
+                service.Add(productdto);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+        }
+        [HttpPut]
+        [Route("UpdateProduct/{id:int}")]
+        public IHttpActionResult UpdateProduct(int id, ProductViewModel product)
+        {
+            if (ModelState.IsValid)
+            {
+                var productdto = Mapper.Map<ProductViewModel, ProductDTO>(product);
+                service.Update(id, productdto);
+                return Ok();
+            }
+            else
+            {
+                return BadRequest(ModelState);
+            }
+
+
         }
         [Route("InRange")]
         //  [AllowAnonymous]
-        [Authorize(Roles = "User,Admin,Manager")]
-        public IEnumerable<ProductDTO> GetProductsinRange([FromUri]int bot, [FromUri]int top)
+        [Authorize]
+        public IHttpActionResult GetProductsinRange(ProductInRangeModel range)
         {
-            var posts = service.GetProductsInRange(bot, top);
-            return posts;
+            if (ModelState.IsValid)
+            {
+                var posts = service.GetProductsInRange(range.bot, range.top);
+                var postsView = Mapper.Map<IEnumerable<ProductDTO>, List<ProductViewModel>>(posts);
+                return Ok(postsView);
+            }
+            else
+                return BadRequest(ModelState);
 
         }
         [Route("ByName")]
         [Authorize(Roles = "Admin,Manager")]
-        public IEnumerable<ProductDTO> GetProductsByName([FromUri] string Name)
+        public IHttpActionResult GetProductsByName([FromUri] string Name)
         {
-            return service.GetProductsThatContainsWord(Name);
+            var products = service.GetProductsThatContainsWord(Name);
+            return Ok(products);
         }
+       
     }
 }

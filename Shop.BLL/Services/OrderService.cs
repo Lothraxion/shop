@@ -40,7 +40,7 @@ namespace Shop.BLL.Services
                 }
                 var productToAdd = unitOfWork.ProductRepository.GetItemById(product.ProductId);
                 if (productToAdd == null)
-                    throw new NotExsitinException("Product not Existing");
+                    throw new NotExsitingException("Product not Existing");
                 if (productToAdd.Amount < product.Amount)
                     throw new InvalidArgumentException("Product have not enough amount");
                 user.Cart.Products.Add(productToAdd);
@@ -51,7 +51,7 @@ namespace Shop.BLL.Services
                 unitOfWork.ProductCartRepository.Update(user.Cart);
                 unitOfWork.CommtiChanges();
             }
-            catch (NotExsitinException ex)
+            catch (NotExsitingException ex)
             {
                 throw new AddingException(ex.Message);
             }
@@ -67,7 +67,7 @@ namespace Shop.BLL.Services
         }
         public void Dispose()
         {
-            throw new NotImplementedException();
+            unitOfWork.Dispose();
         }
     }
 }

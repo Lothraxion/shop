@@ -36,6 +36,9 @@ namespace Show.WebApi.Util
             kernel.Bind<IProductService>().To<ProductService>();
             kernel.Bind<IUserService>().To<UserService>();
             kernel.Bind<IOrderService>().To<OrderService>();
+            kernel.Bind<ICategoryService>().To<CategoryService>();
+            kernel.Bind<ISectionService>().To<SectionService>();
+            kernel.Bind<ISubSectionService>().To<SubSectionService>();
         }
     }
 }

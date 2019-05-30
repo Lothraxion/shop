@@ -26,30 +26,37 @@ namespace Show.WebApi.Controllers
 
         [HttpGet]
         [Route("")]
-        public OrderViewModel GetOrderInfo()
+        public IHttpActionResult GetOrderInfo()
         {
             var order = service.GetOrderInfo(User.Identity.Name);
-            return Mapper.Map<OrderCartDTO, OrderViewModel>(order);
+            var map = Mapper.Map<OrderCartDTO, OrderViewModel>(order);
+            return Ok(map);
         }
         [HttpPost]
         [Route("AddProduct")]
-        public void AddProductToOrder(AddToOrderViewModel product)
+        public IHttpActionResult AddProductToOrder(AddToOrderViewModel product)
         {
-            try
+            if (ModelState.IsValid)
             {
-                product.UserName = User.Identity.Name;
-                Mapper.Map<AddToOrderViewModel, ProductAddModel>(product);
-                service.AddProductToCart(Mapper.Map<AddToOrderViewModel, ProductAddModel>(product));
-            }
-            catch (AddingException)
-            {
-                var resp = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                try
                 {
-                    Content = new StringContent(string.Format("Cant't add ProductId:{0} to order", product.ProductId)),
-                    ReasonPhrase = "Cant't add Product"
-                };
-                throw new HttpResponseException(resp);
+                    product.UserName = User.Identity.Name;
+                    Mapper.Map<AddToOrderViewModel, ProductAddModel>(product);
+                    service.AddProductToCart(Mapper.Map<AddToOrderViewModel, ProductAddModel>(product));
+                    return Ok();
+                }
+                catch (AddingException)
+                {
+                    var resp = new HttpResponseMessage(HttpStatusCode.InternalServerError)
+                    {
+                        Content = new StringContent(string.Format("Cant't add ProductId:{0} to order", product.ProductId)),
+                        ReasonPhrase = "Cant't add Product"
+                    };
+                    throw new HttpResponseException(resp);
+                }
             }
+            else return BadRequest(ModelState);
+
         }
 
     }

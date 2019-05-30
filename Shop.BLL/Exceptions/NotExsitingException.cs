@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shop.BLL.Exceptions
 {
-    class NotExsitinException : Exception
+    class NotExsitingException : Exception
     {
-        public NotExsitinException(string message) : base(message)
+        public NotExsitingException(string message) : base(message)
         {
         }
     }

@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 
 namespace Shop.BLL.DTO
 {
-   [DataContract]
    public class ProductAddModel
     {
         public int ProductId { get; set; }

@@ -16,7 +16,12 @@ namespace Show.WebApi.Automapper
                 cfg.AddProfile<OrderViewModelProfile>();
                 cfg.AddProfile<ProductDTOProfile>();
                 cfg.AddProfile<ProductViewProfile>();
-             
+                cfg.AddProfile<CategoryViewProfile>();
+                cfg.AddProfile <CategoryDTOProfile>();
+                cfg.AddProfile<SectionProfile>();
+                cfg.AddProfile<SectionViewProfile>();
+                cfg.AddProfile<SubSectionViewProfile>();
+                cfg.AddProfile<SubSectionDTOProfile>();
             });
         }
     }

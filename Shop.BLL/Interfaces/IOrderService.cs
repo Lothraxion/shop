@@ -11,5 +11,6 @@ namespace Shop.BLL.Interfaces
     {
         void AddProductToCart(ProductAddModel product);
         OrderCartDTO GetOrderInfo(string UserName);
+
     }
 }

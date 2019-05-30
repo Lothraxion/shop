@@ -8,24 +8,15 @@ using System.Threading.Tasks;
 
 namespace Shop.BLL.DTO
 {
-    [DataContract]
     public class ProductDTO
     {
-        [DataMember]
         public string Name { get; set; }
-        [DataMember]
         public double Price { get; set; }
-        [DataMember]
         public int Amount { get; set; }
-        [DataMember]
         public string Сharacteristics { get; set; }
-        [DataMember]
-        public int Sales { get; }
-        [DataMember]
+        public int Sales { get; set; }
         public string CategoryName { get; set; }
-        [DataMember]
         public string SectionName { get; set; }
-        [DataMember]
         public string SubSectionName { get; set; }
 
     }

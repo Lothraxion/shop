@@ -9,11 +9,12 @@ using Shop.DAL.Entities;
 
 namespace Shop.BLL.AutomapperProfiles
 {
-    public class OrderDTOProfile:Profile
+    public class CategoryDTOProfile:Profile
     {
-        public OrderDTOProfile()
+        public CategoryDTOProfile()
         {
-            CreateMap<ProductDTO, string>().ConstructUsing(c => c.Name);
+            CreateMap<Category, CategoryDTO>();
         }
+
     }
 }

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Shop.BLL.Exceptions
 {
-   public class AddingException : Exception
+    class AlreadyExistingException: Exception
     {
-        public AddingException(string message) : base(message)
+        public AlreadyExistingException(string message) : base(message)
         {
         }
     }

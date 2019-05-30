@@ -19,16 +19,11 @@ namespace Shop.DAL.Entities
         public string Сharacteristics { get; set; }
         public int Amount { get; set; }
         public int Sales { get; set; }
-      //  [ForeignKey("Category")]
         public int? CategoryId { get; set; }
         [Required]
         public virtual Category Category { get; set; }
         [Required]
-       // [ForeignKey("SubSection")]
-      //  public int? SubSectionId { get; set; }
         public virtual SubSection SubSection { get; set; }
-      //  [ForeignKey("Section")]
-        //public int? SectionId { get; set; }
         [Required]
         public virtual Section Section { get; set; }
 

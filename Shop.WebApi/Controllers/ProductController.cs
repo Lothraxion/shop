@@ -24,7 +24,7 @@ namespace Show.WebApi.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin , Manager")]
         public IHttpActionResult DeleteProduct(int id)
         {
             service.Delete(id);
@@ -42,6 +42,7 @@ namespace Show.WebApi.Controllers
         }
         [HttpGet]
         [Route("")]
+        [Authorize(Roles = "Admin, Manager")]
         //public IHttpActionResult Get()
         //{
         //    return Ok(User.Identity.Name + User.IsInRole("user"));
@@ -53,7 +54,7 @@ namespace Show.WebApi.Controllers
         }
         [HttpPost]
         [Route("AddProduct")]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin , Manager")]
         public IHttpActionResult AddProduct(ProductViewModel product)
         {
             if (ModelState.IsValid)
@@ -69,7 +70,7 @@ namespace Show.WebApi.Controllers
         }
         [HttpPut]
         [Route("UpdateProduct/{id:int}")]
-        [Authorize(Roles = "Admin,Manager")]
+        [Authorize(Roles = "Admin , Manager")]
         public IHttpActionResult UpdateProduct(int id, ProductViewModel product)
         {
             if (ModelState.IsValid)
@@ -102,7 +103,6 @@ namespace Show.WebApi.Controllers
         }
         [HttpGet]
         [Route("ByName")]
-        [Authorize(Roles = "Admin,Manager")]
         public IHttpActionResult GetProductsByName([FromUri] string Name)
         {
             var products = service.GetProductsThatContainsWord(Name);

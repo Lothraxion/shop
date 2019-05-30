@@ -21,64 +21,27 @@ using System.Web;
 using System.Web.Http;
 using Shop.DAL.Interfaces;
 using Show.WebApi.Providers;
+using Show.WebApi.Util;
 
 [assembly: OwinStartup(typeof(Shop.WebApi.Startup))]
 namespace Shop.WebApi
 {
     public class Startup
     {
-        //public void Configuration(IAppBuilder app)
-        //{
-        //    //NinjectWebCommon.Start();
-        //    GlobalConfiguration.Configure(WebApiConfig.Register);
-        //    HttpConfiguration config = new HttpConfiguration();
-        //    WebApiConfig.Register(config);
-        //    app.UseNinjectWebApi(config);
-        //    //app.UseWebApi(config);
-        //   // app.UseNinjectMiddleware
-        //}
+      
         public void Configuration(IAppBuilder app)
         {
             HttpConfiguration config = new HttpConfiguration();
             WebApiConfig.Register(config);
-            var kernel = CreateKernel();
+            var kernel = NinjectStart.CreateKernel();
             ConfigureOAuth(app,kernel);
             Automap.Configure();
            // GlobalConfiguration.Configure(WebApiConfig.Register);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
            
-            app.UseNinjectMiddleware(CreateKernel).UseNinjectWebApi(config);
+            app.UseNinjectMiddleware(NinjectStart.CreateKernel).UseNinjectWebApi(config);
         }
-        private static StandardKernel CreateKernel()
-        {
-            var modules = new INinjectModule[] { new ServiceNinjectModule("ShopConnection"),
-                new AuthenticationNinjectModule("AuthenticationConnection")};
-            var kernel = new StandardKernel(modules);
-            try
-            {
-                kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-                kernel.Load(Assembly.GetExecutingAssembly());
-                RegisterServices(kernel);
-                GlobalConfiguration.Configuration.DependencyResolver = new NinjectDependencyResolver(kernel);
-                return kernel;
-            }
-            catch
-            {
-                kernel.Dispose();
-                throw;
-            }
-           
-        }
-        private static void RegisterServices(IKernel kernel)
-        {
-            kernel.Bind<IProductService>().To<ProductService>();
-            kernel.Bind<IUserService>().To<UserService>();
-            kernel.Bind<IOrderService>().To<OrderService>();
-            kernel.Bind<ICategoryService>().To<CategoryService>();
-            kernel.Bind<ISectionService>().To<SectionService>();
-            kernel.Bind<ISubSectionService>().To<SubSectionService>();
-        }
+      
 
         public void ConfigureOAuth(IAppBuilder app, IKernel kernel)
         {

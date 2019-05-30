@@ -9,36 +9,36 @@ using System.Web.Http.Dependencies;
 
 namespace Show.WebApi.Util
 {
-    public class NinjectDependencyResolver : IDependencyScope, IDisposable
-    {
-        private IKernel kernel;
-        public NinjectDependencyResolver(IKernel kernelParam)
-        {
-            kernel = kernelParam;
-            AddBindings();
-        }
-        public void Dispose()
-        {
-            Dispose();
-        }
+    //public class NinjectDependencyResolvert : IDependencyScope, IDisposable
+    //{
+    //    private IKernel kernel;
+    //    public NinjectDependencyResolver(IKernel kernelParam)
+    //    {
+    //        kernel = kernelParam;
+    //        AddBindings();
+    //    }
+    //    public void Dispose()
+    //    {
+    //        Dispose();
+    //    }
 
-        public object GetService(Type serviceType)
-        {
-            return kernel.TryGet(serviceType);
-        }
+    //    public object GetService(Type serviceType)
+    //    {
+    //        return kernel.TryGet(serviceType);
+    //    }
 
-        public IEnumerable<object> GetServices(Type serviceType)
-        {
-            return kernel.GetAll(serviceType);
-        }
-        private void AddBindings()
-        {
-            kernel.Bind<IProductService>().To<ProductService>();
-            kernel.Bind<IUserService>().To<UserService>();
-            kernel.Bind<IOrderService>().To<OrderService>();
-            kernel.Bind<ICategoryService>().To<CategoryService>();
-            kernel.Bind<ISectionService>().To<SectionService>();
-            kernel.Bind<ISubSectionService>().To<SubSectionService>();
-        }
-    }
+    //    public IEnumerable<object> GetServices(Type serviceType)
+    //    {
+    //        return kernel.GetAll(serviceType);
+    //    }
+    //    private void AddBindings()
+    //    {
+    //        kernel.Bind<IProductService>().To<ProductService>();
+    //        kernel.Bind<IUserService>().To<UserService>();
+    //        kernel.Bind<IOrderService>().To<OrderService>();
+    //        kernel.Bind<ICategoryService>().To<CategoryService>();
+    //        kernel.Bind<ISectionService>().To<SectionService>();
+    //        kernel.Bind<ISubSectionService>().To<SubSectionService>();
+    //    }
+    //}
 }

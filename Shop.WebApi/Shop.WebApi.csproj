@@ -193,6 +193,7 @@
     <Compile Include="Providers\SimpleAuthorizationServerProvider.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="Util\NinjectDependencyResolver.cs" />
+    <Compile Include="Util\NinjectStart.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

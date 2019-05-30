@@ -29,7 +29,8 @@ namespace Show.WebApi.Controllers
         }
         [HttpPost]
         [Route("AddSection")]
-        public IHttpActionResult AddCategory(SectionViewModel section)
+        [Authorize(Roles = "Admin,Manager")]
+        public IHttpActionResult AddSection(SectionViewModel section)
         {
             var sectionDTO = Mapper.Map<SectionViewModel, SectionDTO>(section);
             service.AddSection(sectionDTO);
@@ -38,7 +39,7 @@ namespace Show.WebApi.Controllers
         }
         [HttpGet]
         [Route("{id:int}")]
-        public IHttpActionResult GetCategoryById(int id)
+        public IHttpActionResult GetSectionyById(int id)
         {
             var sectionDTO = service.GetSection(id);
             var sectionsView = Mapper.Map<SectionDTO, SectionViewModel>(sectionDTO);
@@ -46,13 +47,15 @@ namespace Show.WebApi.Controllers
         }
         [HttpDelete]
         [Route("{id:int}")]
-        public IHttpActionResult DeleteCategory(int id)
+        [Authorize(Roles = "Admin,Manager")]
+        public IHttpActionResult DeleteSection(int id)
         {
             service.DeleteSection(id);
             return Ok();
         }
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize(Roles = "Admin,Manager")]
         public IHttpActionResult Update(int id, SectionViewModel section)
         {
             var sectionDTO = Mapper.Map<SectionViewModel, SectionDTO>(section);

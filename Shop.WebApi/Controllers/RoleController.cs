@@ -23,6 +23,7 @@ namespace Show.WebApi.Controllers
        
         [HttpPost]
         [Route("CreateRole")]
+        [Authorize(Roles = "Admin")]
         public string PostRole([FromBody]RoleViewModel Role)
         {
             try
@@ -41,7 +42,8 @@ namespace Show.WebApi.Controllers
             }
         }
         [Route("RemoveRole")]
-        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        [HttpDelete]
         public string RevomeRole([FromBody]RoleViewModel Role)
         {
             try
@@ -56,13 +58,15 @@ namespace Show.WebApi.Controllers
                 return Role.RoleName;
             }
         }
+        [Authorize(Roles = "Admin")]
         [Route("DeleteRoleForUser")]
-        [HttpPost]
+        [HttpDelete]
         public void RemoveRole([FromBody] UserRoleViewModel userRole)
         {
             UserService.RemoveRoleFromUser(userRole.UserName, userRole.RoleName);
         }
         [Route("AddRoleToUser")]
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public void RoleAddToUser([FromBody] UserRoleViewModel userRole)
         {

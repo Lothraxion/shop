@@ -13,7 +13,6 @@ using AutoMapper;
 namespace Show.WebApi.Controllers
 {
     [RoutePrefix("api/product")]
-    [Authorize]
     public class ProductController : ApiController
     {
         IProductService service;
@@ -25,6 +24,7 @@ namespace Show.WebApi.Controllers
 
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "Admin,Manager")]
         public IHttpActionResult DeleteProduct(int id)
         {
             service.Delete(id);
@@ -40,8 +40,8 @@ namespace Show.WebApi.Controllers
             return Ok(productView);
 
         }
+        [HttpGet]
         [Route("")]
-        [Authorize]
         //public IHttpActionResult Get()
         //{
         //    return Ok(User.Identity.Name + User.IsInRole("user"));
@@ -53,6 +53,7 @@ namespace Show.WebApi.Controllers
         }
         [HttpPost]
         [Route("AddProduct")]
+        [Authorize(Roles = "Admin,Manager")]
         public IHttpActionResult AddProduct(ProductViewModel product)
         {
             if (ModelState.IsValid)
@@ -68,6 +69,7 @@ namespace Show.WebApi.Controllers
         }
         [HttpPut]
         [Route("UpdateProduct/{id:int}")]
+        [Authorize(Roles = "Admin,Manager")]
         public IHttpActionResult UpdateProduct(int id, ProductViewModel product)
         {
             if (ModelState.IsValid)
@@ -83,9 +85,9 @@ namespace Show.WebApi.Controllers
 
 
         }
+        [HttpGet]
         [Route("InRange")]
         //  [AllowAnonymous]
-        [Authorize]
         public IHttpActionResult GetProductsinRange(ProductInRangeModel range)
         {
             if (ModelState.IsValid)
@@ -98,6 +100,7 @@ namespace Show.WebApi.Controllers
                 return BadRequest(ModelState);
 
         }
+        [HttpGet]
         [Route("ByName")]
         [Authorize(Roles = "Admin,Manager")]
         public IHttpActionResult GetProductsByName([FromUri] string Name)

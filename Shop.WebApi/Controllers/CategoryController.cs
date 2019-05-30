@@ -11,7 +11,7 @@ using Show.WebApi.Models;
 
 namespace Show.WebApi.Controllers
 {
-
+    
     [RoutePrefix("api/Category")]
     public class CategoryController : ApiController
     {
@@ -30,6 +30,7 @@ namespace Show.WebApi.Controllers
         }
         [HttpPost]
         [Route("AddCategory")]
+        [Authorize(Roles ="Admin,Manager")]
         public IHttpActionResult AddCategory(CategoryViewModel category)
         {
             var categoryDTO = Mapper.Map<CategoryViewModel, CategoryDTO>(category);
@@ -47,6 +48,7 @@ namespace Show.WebApi.Controllers
         }
         [HttpDelete]
         [Route("{id:int}")]
+        [Authorize(Roles = "Admin,Manager")]
         public IHttpActionResult DeleteCategory(int id)
         {
             service.DeleteCategory(id);
@@ -54,6 +56,7 @@ namespace Show.WebApi.Controllers
         }
         [HttpPut]
         [Route("{id:int}")]
+        [Authorize(Roles = "Admin,Manager")]
         public IHttpActionResult Update(int id, CategoryViewModel category)
         {
             var categorydto = Mapper.Map<CategoryViewModel, CategoryDTO>(category);

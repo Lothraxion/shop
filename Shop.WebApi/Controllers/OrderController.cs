@@ -14,7 +14,7 @@ using Shop.BLL.Exceptions;
 namespace Show.WebApi.Controllers
 {
     [RoutePrefix("api/order")]
-    [Authorize]
+    [Authorize(Roles = "Admin,Manager,User")]
     public class OrderController : ApiController
     {
         IOrderService service;
